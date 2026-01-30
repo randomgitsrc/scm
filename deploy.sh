@@ -13,13 +13,13 @@
 # -----------------------------------------------------------------------------
 
 # VPS 服务器配置
-VPS_IP="62.192.173.109"                    # VPS服务器IP地址
+VPS_IP="100.100.100.100"                    # VPS服务器IP地址
 VPS_USER="root"                         # SSH登录用户名
 VPS_PORT="22"                           # SSH端口
 SSH_KEY=""                              # SSH私钥路径，如 ~/.ssh/id_rsa，留空使用密码
 
 # 域名配置
-DOMAIN="scm.gsis.top"                # 你的域名，如果没有可先用IP地址
+DOMAIN="game.shop.com"                # 你的域名，如果没有可先用IP地址
 ENABLE_HTTPS="false"                     # 是否启用HTTPS (true/false)
 EMAIL="your-email@example.com"          # 用于SSL证书的邮箱
 

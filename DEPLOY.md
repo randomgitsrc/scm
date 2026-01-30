@@ -8,7 +8,7 @@
 
 ```bash
 # VPS 服务器配置
-VPS_IP="123.456.789.0"           # 你的VPS IP地址
+VPS_IP="8.8.8.8"           # 你的VPS IP地址
 VPS_USER="root"                  # SSH用户名
 VPS_PORT="22"                    # SSH端口
 SSH_KEY="~/.ssh/id_rsa"          # SSH私钥路径（可选）
