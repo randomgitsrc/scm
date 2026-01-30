@@ -1,0 +1,384 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Army colors */
+  --color-army: #3D4A1E;
+  --color-army-dark: #2A3314;
+  --color-army-light: #4D5D26;
+
+  /* Panel colors */
+  --color-panel-dark: #1C1C1E;
+
+  /* LED colors */
+  --color-led-red: #FF3B30;
+  --color-led-white: #F0F0F0;
+  --color-led-off: #1A1A1A;
+  --color-led-green: #30D158;
+  --color-led-yellow: #FFCC00;
+
+  /* Game colors - high contrast */
+  --color-game-red: #FF2D55;
+  --color-game-yellow: #FFCC00;
+  --color-game-blue: #007AFF;
+  --color-game-green: #34C759;
+  --color-game-purple: #AF52DE;
+  --color-game-orange: #FF9500;
+  --color-game-cyan: #00C7BE;
+
+  /* Custom animations */
+  --animate-pulse-border: pulse-border 1.5s ease-in-out infinite;
+  --animate-sway: sway 2s ease-in-out infinite;
+  --animate-shake: shake 0.5s ease-in-out;
+  --animate-scan: scan 1s linear;
+
+  @keyframes pulse-border {
+    0%, 100% { border-color: rgba(255, 149, 0, 0.5); }
+    50% { border-color: rgba(255, 149, 0, 1); }
+  }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+  }
+
+  @keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #3D4A1E;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #3D4A1E;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Prevent text selection on game elements */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Touch optimization */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Military camouflage pattern background - responsive */
+.bg-camo {
+  background-color: #3D4A1E;
+  background-image:
+    /* Camouflage blobs - larger for desktop */
+    radial-gradient(ellipse clamp(80px, 10vw, 150px) clamp(60px, 8vw, 120px) at 10% 20%, rgba(45, 55, 20, 0.8) 0%, transparent 70%),
+    radial-gradient(ellipse clamp(100px, 12vw, 180px) clamp(80px, 10vw, 150px) at 80% 30%, rgba(35, 45, 15, 0.6) 0%, transparent 60%),
+    radial-gradient(ellipse clamp(60px, 8vw, 120px) clamp(90px, 11vw, 160px) at 30% 60%, rgba(50, 60, 25, 0.5) 0%, transparent 70%),
+    radial-gradient(ellipse clamp(120px, 15vw, 200px) clamp(70px, 9vw, 140px) at 70% 70%, rgba(40, 50, 18, 0.7) 0%, transparent 60%),
+    radial-gradient(ellipse clamp(90px, 11vw, 170px) clamp(100px, 12vw, 180px) at 50% 40%, rgba(30, 40, 12, 0.4) 0%, transparent 65%),
+    /* Subtle grid overlay */
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: auto, auto, auto, auto, auto, clamp(32px, 3vw, 48px) clamp(32px, 3vw, 48px), clamp(32px, 3vw, 48px) clamp(32px, 3vw, 48px);
+}
+
+/* Device frame effect - metallic border */
+.device-frame {
+  position: relative;
+  background: linear-gradient(180deg,
+    #2a3314 0%,
+    #3D4A1E 5%,
+    #3D4A1E 95%,
+    #2a3314 100%
+  );
+  box-shadow:
+    /* Inner shadow for depth */
+    inset 0 2px 4px rgba(0, 0, 0, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+    /* Outer glow/frame */
+    0 0 0 1px rgba(0, 0, 0, 0.5),
+    0 0 0 2px rgba(60, 70, 30, 0.8),
+    0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Screw/rivet decoration */
+.screw {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #4a5530 0%, #2a3314 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.screw::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.6);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.screw::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.6);
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Panel texture for top/bottom areas */
+.bg-panel-texture {
+  background-image:
+    linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 50%, rgba(0,0,0,0.1) 100%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+}
+
+/* Metal edge highlight */
+.metal-edge-top {
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.1) 0%,
+    rgba(255,255,255,0.02) 50%,
+    transparent 100%
+  );
+}
+
+.metal-edge-bottom {
+  background: linear-gradient(0deg,
+    rgba(0,0,0,0.3) 0%,
+    rgba(0,0,0,0.1) 50%,
+    transparent 100%
+  );
+}
+
+/* Scan line animation for verification */
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(400px);
+    opacity: 0;
+  }
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #FF9500, transparent);
+  box-shadow: 0 0 10px #FF9500, 0 0 20px #FF9500;
+  animation: scan-line 0.8s ease-in-out;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Signal wave animation */
+@keyframes signal-wave {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.signal-wave {
+  animation: signal-wave 2s ease-out infinite;
+}
+
+/* Current row pulse animation for border */
+@keyframes pulse-border {
+  0%, 100% {
+    border-color: rgba(255, 149, 0, 0.3);
+  }
+  50% {
+    border-color: rgba(255, 149, 0, 0.7);
+  }
+}
+
+.animate-pulse-border {
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+/* Screen glow effect for game area */
+.screen-glow {
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Brushed metal texture */
+.brushed-metal {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 1px,
+      rgba(0,0,0,0.02) 1px,
+      rgba(0,0,0,0.02) 2px
+    );
+}
+
+/* Vignette effect for depth */
+.vignette {
+  position: relative;
+}
+
+.vignette::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 60%,
+    rgba(0,0,0,0.2) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Breathing animation for lock icon */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.6;
+  }
+}
+
+.animate-breathe {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+/* Status LED indicator */
+.status-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FF3B30;
+  box-shadow:
+    0 0 4px #FF3B30,
+    0 0 8px #FF3B30,
+    inset 0 -1px 2px rgba(0,0,0,0.3);
+  animation: pulse-led 2s ease-in-out infinite;
+}
+
+@keyframes pulse-led {
+  0%, 100% {
+    opacity: 0.6;
+    box-shadow:
+      0 0 4px #FF3B30,
+      0 0 8px #FF3B30;
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 6px #FF3B30,
+      0 0 12px #FF3B30,
+      0 0 16px #FF3B30;
+  }
+}
+
+/* Enhanced text contrast utilities */
+.text-bright {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.text-dim {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Enhanced label styling */
+.input-label {
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive text utilities */
+.text-responsive-xs {
+  font-size: clamp(10px, 1.5vw, 12px);
+}
+
+.text-responsive-sm {
+  font-size: clamp(12px, 2vw, 14px);
+}
+
+.text-responsive-base {
+  font-size: clamp(14px, 2.5vw, 16px);
+}
+
+.text-responsive-lg {
+  font-size: clamp(16px, 3vw, 20px);
+}
+
+.text-responsive-xl {
+  font-size: clamp(18px, 3.5vw, 24px);
+}
+
+/* Responsive spacing for desktop */
+@media (min-width: 640px) {
+  .game-container .responsive-scale {
+    transform: scale(1.05);
+  }
+}
+
+@media (min-width: 1024px) {
+  .game-container .responsive-scale {
+    transform: scale(1.1);
+  }
+}

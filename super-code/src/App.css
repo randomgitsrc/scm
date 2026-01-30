@@ -1,0 +1,85 @@
+/* Safe area for iOS */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+/* Landscape detection */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .landscape-warning {
+    display: flex !important;
+  }
+}
+
+/* Custom scrollbar for history board */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Ensure full height */
+html, body, #root {
+  height: 100%;
+  min-height: 100vh;
+}
+
+/* Allow scrolling on desktop if content overflows */
+body {
+  overflow-y: auto;
+  overscroll-behavior: none;
+}
+
+/* Game container - responsive sizing */
+.game-container {
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  max-height: 100vh;
+  background: inherit;
+}
+
+/* Desktop/tablet adjustments */
+@media (min-width: 640px) {
+  .game-container {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    min-height: 600px;
+    max-height: 95vh;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1024px) {
+  .game-container {
+    max-width: 440px;
+  }
+}
+
+/* Very small screens (small phones) */
+@media (max-height: 700px) {
+  .game-container {
+    font-size: 13px;
+  }
+}
+
+/* Ultra-wide but short screens */
+@media (min-aspect-ratio: 2/1) and (max-height: 600px) {
+  .game-container {
+    height: 100vh;
+    max-width: 360px;
+  }
+}
